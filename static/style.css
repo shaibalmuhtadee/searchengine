@@ -1,19 +1,94 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+:root {
+  --background-color: #0d0606;
+  --text-color: white;
+  --border-color: #f0ca6f;
+  --input-background-color: #333;
+  --button-background-color: #f0ca6f;
+  --button-hover-background-color: #e0b85f;
+  --table-header-background-color: #333;
+  --table-cell-background-color: #222;
+  --logo-width: 600px;
+  --input-width: 400px;
+  --input-height: 40px;
+  --button-width: 150px;
+  --button-height: 50px;
+  --border-radius: 20px;
 }
 
-h1 {
-    color: #333;
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#logo {
+  width: var(--logo-width);
+  margin-bottom: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 form > * {
-    margin: 10px 0;
+  margin: 10px 5px;
+}
+
+input[type="text"] {
+  width: var(--input-width);
+  height: var(--input-height);
+  font-size: 18px;
+  padding: 10px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--input-background-color);
+  color: var(--text-color);
+  outline: none;
+}
+
+button[type="submit"] {
+  width: var(--button-width);
+  height: var(--input-height);
+  font-size: 18px;
+  padding: 10px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--button-background-color);
+  color: var(--background-color);
+  cursor: pointer;
+  outline: none;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--button-hover-background-color);
+}
+
+table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 50%;
+  border: 1px solid var(--text-color);
+}
+
+th {
+  color: var(--border-color);
+  border: 1px solid var(--text-color);
+  padding: 10px;
+  background-color: var(--table-header-background-color);
+}
+
+td {
+  padding: 10px;
+  border: 1px solid var(--text-color);
+  text-align: center;
+  background-color: var(--table-cell-background-color);
 }
