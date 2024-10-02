@@ -4,6 +4,10 @@ from bottle import route, run, static_file, template
 def index():
     return template('views/index.html')
 
+@route('/result')
+def index():
+    return template('views/result.html')
+
 @route('/static/<filename>')
 def server_static(filename):
     return static_file(filename, root='./static')

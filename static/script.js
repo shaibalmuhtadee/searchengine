@@ -16,6 +16,10 @@ document.addEventListener("DOMContentLoaded", function () {
     displayResults(wordCountMap);
   });
 
+  document.getElementById("resultButton").onclick = function () {
+      location.href = "/result";
+  };
+
   function getWordCountMap(text) {
     const words = text.split(/\s+/);
     const wordCountMap = {};
