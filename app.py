@@ -5,30 +5,23 @@ import json
 top_20_keywords = Counter()
 
 
-@route('/')
+@route('/', method=['GET', 'POST'])
 def index():
-    sorted_dict = dict(top_20_keywords.most_common(20))
-    return template('views/index.html', top_20_keywords=sorted_dict)
+    if request.method == 'GET':
+        return template('views/index.html')
+    elif request.method == 'POST':
+        keywords = request.forms.get('keywords').strip()
+        current_keywords = {}
+        if keywords:
+            current_keywords = get_word_count_map(keywords)
+            top_20_keywords.update(current_keywords)
+        sorted_dict = dict(top_20_keywords.most_common(20))
+        return template('views/result.html', top_20_keywords=sorted_dict, current_keywords=current_keywords)
 
 
 @route('/static/<filename>')
 def server_static(filename):
     return static_file(filename, root='./static')
-
-
-@route('/search', method='GET')
-def search():
-    global top_20_keywords
-    keywords = request.query.keywords.strip()
-    if not keywords:
-        response.content_type = 'application/json'
-        return json.dumps(dict(top_20_keywords.most_common(20)))
-
-    word_count_map = get_word_count_map(keywords)
-    top_20_keywords.update(word_count_map)
-
-    response.content_type = 'application/json'
-    return json.dumps(dict(top_20_keywords.most_common(20)))
 
 
 def get_word_count_map(text):

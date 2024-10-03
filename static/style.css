@@ -55,7 +55,8 @@ input[type="text"] {
   outline: none;
 }
 
-button[type="submit"] {
+button[type="submit"],
+button[type="button"] {
   width: var(--button-width);
   height: var(--input-height);
   font-size: 18px;
@@ -68,7 +69,8 @@ button[type="submit"] {
   outline: none;
 }
 
-button[type="submit"]:hover {
+button[type="submit"]:hover,
+button[type="button"]:hover {
   background-color: var(--button-hover-background-color);
 }
 
