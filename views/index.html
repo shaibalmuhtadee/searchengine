@@ -8,16 +8,16 @@
   </head>
   <body>
     <img src="/static/logo.png" alt="Logo" id="logo" />
-    <form>
+    <form method="GET" action="/search">
       <input
         type="text"
-        name="search"
+        name="keywords"
         id="search"
         placeholder="Search here..."
       />
       <button type="submit">Search</button>
     </form>
-    <table id="results-table" style="display: none">
+    <table id="results-table" name="results" style="display: none">
       <thead>
         <tr>
           <th><strong>Word</strong></th>
@@ -26,7 +26,7 @@
       </thead>
       <tbody></tbody>
     </table>
-    <table id="popular-keywords-table" style="display: none">
+    <table id="popular-keywords-table" name="history" style="display: none">
       <thead>
         <tr>
           <th><strong>Popular Word</strong></th>

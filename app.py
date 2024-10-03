@@ -14,11 +14,15 @@ def server_static(filename):
     return static_file(filename, root='./static')
 
 
-@route('/search', method='POST')
+@route('/search', method='GET')
 def search():
     global top_20_keywords
-    data = request.json
-    word_count_map = data.get('word_count_map', {})
+    keywords = request.query.keywords.strip()
+    if not keywords:
+        response.content_type = 'application/json'
+        return json.dumps(top_20_keywords)
+
+    word_count_map = get_word_count_map(keywords)
 
     for word, count in word_count_map.items():
         if word in top_20_keywords:
@@ -32,6 +36,18 @@ def search():
 
     response.content_type = 'application/json'
     return json.dumps(top_20_keywords)
+
+
+def get_word_count_map(text):
+    words = text.split()
+    word_count_map = {}
+    for word in words:
+        word = word.lower()
+        if word in word_count_map:
+            word_count_map[word] += 1
+        else:
+            word_count_map[word] = 1
+    return word_count_map
 
 
 run(host='localhost', port=8080, debug=True)

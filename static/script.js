@@ -8,15 +8,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   form.addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the form from submitting
-    const text = searchInput.value.trim();
-    if (text === "") {
+    const keywords = searchInput.value.trim();
+    if (keywords === "") {
       alert("Please enter some text to search.");
       return;
     }
 
-    const wordCountMap = getWordCountMap(text);
-    displayResults(wordCountMap);
-    updatePopularWords(wordCountMap);
+    fetch(`/search?keywords=${encodeURIComponent(keywords)}`)
+      .then((response) => response.json())
+      .then((data) => {
+        displayResults(getWordCountMap(keywords));
+        displayPopularWords(data);
+      });
   });
 
   function getWordCountMap(text) {
@@ -46,20 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
       resultsTableBody.appendChild(row);
     }
     resultsTable.style.display = "table";
-  }
-
-  function updatePopularWords(wordCountMap) {
-    fetch("/search", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ word_count_map: wordCountMap }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        displayPopularWords(data);
-      });
   }
 
   function displayPopularWords(popularWords) {
