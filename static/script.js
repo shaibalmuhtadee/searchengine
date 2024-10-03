@@ -3,17 +3,23 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchInput = document.getElementById("search");
   const resultsTable = document.getElementById("results-table");
   const resultsTableBody = resultsTable.querySelector("tbody");
+  const popularTable = document.getElementById("popular-keywords-table");
+  const popularTableBody = popularTable.querySelector("tbody");
 
   form.addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the form from submitting
-    const text = searchInput.value.trim();
-    if (text === "") {
+    const keywords = searchInput.value.trim();
+    if (keywords === "") {
       alert("Please enter some text to search.");
       return;
     }
 
-    const wordCountMap = getWordCountMap(text);
-    displayResults(wordCountMap);
+    fetch(`/search?keywords=${encodeURIComponent(keywords)}`)
+      .then((response) => response.json())
+      .then((data) => {
+        displayResults(getWordCountMap(keywords));
+        displayPopularWords(data);
+      });
   });
 
   function getWordCountMap(text) {
@@ -43,5 +49,21 @@ document.addEventListener("DOMContentLoaded", function () {
       resultsTableBody.appendChild(row);
     }
     resultsTable.style.display = "table";
+  }
+
+  function displayPopularWords(popularWords) {
+    console.log("Top 20 Keywords:", popularWords); // Log the popularWords data structure
+    popularTableBody.innerHTML = ""; // Clear previous results
+    for (const [word, count] of Object.entries(popularWords)) {
+      const row = document.createElement("tr");
+      const wordCell = document.createElement("td");
+      const countCell = document.createElement("td");
+      wordCell.textContent = word;
+      countCell.textContent = count;
+      row.appendChild(wordCell);
+      row.appendChild(countCell);
+      popularTableBody.appendChild(row);
+    }
+    popularTable.style.display = "table";
   }
 });

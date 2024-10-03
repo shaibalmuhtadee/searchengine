@@ -3,21 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index Page</title>
+    <title>Searchington</title>
     <link rel="stylesheet" href="/static/style.css" />
   </head>
   <body>
     <img src="/static/logo.png" alt="Logo" id="logo" />
-    <form>
+    <form method="GET" action="/search">
       <input
         type="text"
-        name="search"
+        name="keywords"
         id="search"
         placeholder="Search here..."
       />
       <button type="submit">Search</button>
     </form>
-    <table id="results-table" style="display: none">
+
+    <table id="results-table" name="results" style="display: none">
       <thead>
         <tr>
           <th><strong>Word</strong></th>
@@ -25,6 +26,22 @@
         </tr>
       </thead>
       <tbody></tbody>
+    </table>
+    <table id="popular-keywords-table" name="history" style="display: none">
+      <thead>
+        <tr>
+          <th><strong>Popular Word</strong></th>
+          <th><strong>Total Count</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        % for word, count in top_20_keywords.items():
+        <tr>
+          <td>{{word}}</td>
+          <td>{{count}}</td>
+        </tr>
+        % end
+      </tbody>
     </table>
     <script src="/static/script.js"></script>
   </body>
