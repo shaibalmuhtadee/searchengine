@@ -6,7 +6,12 @@ top_20_keywords = {}
 
 @route('/')
 def index():
-    return template('views/index.html', top_20_keywords=top_20_keywords)
+    sorted_dict = {}
+    if top_20_keywords:
+        sorted_dict = {k: v for k, v in sorted(top_20_keywords.items(),
+                                               key=lambda x: x[1],
+                                               reverse=True)}
+    return template('views/index.html', top_20_keywords=sorted_dict)
 
 
 @route('/static/<filename>')

@@ -52,7 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function displayPopularWords(popularWords) {
-    popularTableBody.innerHTML = "";
+    console.log("Top 20 Keywords:", popularWords); // Log the popularWords data structure
+    popularTableBody.innerHTML = ""; // Clear previous results
     for (const [word, count] of Object.entries(popularWords)) {
       const row = document.createElement("tr");
       const wordCell = document.createElement("td");
