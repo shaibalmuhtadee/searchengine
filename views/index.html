@@ -33,9 +33,15 @@
           <th><strong>Total Count</strong></th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        % for word, count in top_20_keywords.items():
+        <tr>
+          <td>{{word}}</td>
+          <td>{{count}}</td>
+        </tr>
+        % end
+      </tbody>
     </table>
-
     <script src="/static/script.js"></script>
   </body>
 </html>

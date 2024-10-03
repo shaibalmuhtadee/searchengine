@@ -5,8 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const resultsTableBody = resultsTable.querySelector("tbody");
   const popularTable = document.getElementById("popular-keywords-table");
   const popularTableBody = popularTable.querySelector("tbody");
-  const maxPopularWords = 20;
-  let popularWordCountPQ = [];
 
   form.addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the form from submitting
@@ -19,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const wordCountMap = getWordCountMap(text);
     displayResults(wordCountMap);
     updatePopularWords(wordCountMap);
-    displayPopularWords();
   });
 
   function getWordCountMap(text) {
@@ -52,25 +49,22 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updatePopularWords(wordCountMap) {
-    for (const [word, count] of Object.entries(wordCountMap)) {
-      const existingWordIndex = popularWordCountPQ.findIndex((entry) => entry.word === word);
-      if (existingWordIndex !== -1) {
-        popularWordCountPQ[existingWordIndex].count += count;
-      } else {
-        popularWordCountPQ.push({ word, count });
-      }
-
-      popularWordCountPQ.sort((a, b) => b.count - a.count);
-
-      if (popularWordCountPQ.length > maxPopularWords) {
-        popularWordCountPQ = popularWordCountPQ.slice(0, maxPopularWords);
-      }
-    }
+    fetch("/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ word_count_map: wordCountMap }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        displayPopularWords(data);
+      });
   }
 
-  function displayPopularWords() {
+  function displayPopularWords(popularWords) {
     popularTableBody.innerHTML = "";
-    popularWordCountPQ.forEach(({ word, count }) => {
+    for (const [word, count] of Object.entries(popularWords)) {
       const row = document.createElement("tr");
       const wordCell = document.createElement("td");
       const countCell = document.createElement("td");
@@ -79,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
       row.appendChild(wordCell);
       row.appendChild(countCell);
       popularTableBody.appendChild(row);
-    });
+    }
     popularTable.style.display = "table";
   }
 });
