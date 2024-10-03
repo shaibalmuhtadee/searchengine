@@ -133,3 +133,11 @@ td {
   width: 100%;
   table-layout: fixed;
 }
+
+.hidden {
+  display: none;
+}
+
+h1 {
+  color: var(--button-background-color);
+}

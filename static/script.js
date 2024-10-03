@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const resultsTableBody = resultsTable.querySelector("tbody");
   const popularTable = document.getElementById("popular-keywords-table");
   const popularTableBody = popularTable.querySelector("tbody");
+  const currentKeywordsHeader = document.querySelector("h1:nth-of-type(1)");
+  const popularKeywordsHeader = document.querySelector("h1:nth-of-type(2)");
 
   form.addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the form from submitting
@@ -19,6 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         displayResults(getWordCountMap(keywords));
         displayPopularWords(data);
+        currentKeywordsHeader.classList.remove("hidden");
+        popularKeywordsHeader.classList.remove("hidden");
       });
   });
 
