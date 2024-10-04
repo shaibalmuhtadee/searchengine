@@ -51,6 +51,8 @@ class crawler(object):
         self._doc_id_cache = {}
         self._word_id_cache = {}
         self._inverted_index = defaultdict(set)
+        self._document_index = {}
+        self._lexicon = {}
 
         # functions to call when entering and exiting specific tags
         self._enter = defaultdict(lambda *a, **ka: self._visit_ignore)
@@ -147,6 +149,7 @@ class crawler(object):
 
         word_id = self._mock_insert_word(word)
         self._word_id_cache[word] = word_id
+        self._lexicon[word_id] = word
         return word_id
 
     def document_id(self, url):
@@ -160,6 +163,7 @@ class crawler(object):
 
         doc_id = self._mock_insert_document(url)
         self._doc_id_cache[url] = doc_id
+        self._document_index[doc_id] = url
         return doc_id
 
     def _fix_url(self, curr_url, rel):
@@ -343,10 +347,9 @@ class crawler(object):
         """Return the resolved inverted index."""
         resolved_index = {}
         for word_id, doc_ids in self._inverted_index.items():
-            word = next(
-                key for key, value in self._word_id_cache.items() if value == word_id)
-            resolved_index[word] = {next(key for key, value in self._doc_id_cache.items(
-            ) if value == doc_id) for doc_id in doc_ids}
+            word = self._lexicon[word_id]
+            resolved_index[word] = {
+                self._document_index[doc_id] for doc_id in doc_ids}
         return resolved_index
 
 
