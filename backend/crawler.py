@@ -339,6 +339,14 @@ class crawler(object):
                 if socket:
                     socket.close()
 
+    def get_document_index(self):
+        """Return the document index."""
+        return self._document_index
+
+    def get_lexicon(self):
+        """Return the lexicon."""
+        return self._lexicon
+
     def get_inverted_index(self):
         """Return the inverted index."""
         return self._inverted_index
@@ -355,10 +363,19 @@ class crawler(object):
 
 if __name__ == "__main__":
     bot = crawler(None, "urls.txt")
-    bot.crawl(depth=1)
+    bot.crawl(depth=0)
     inverted_index = bot.get_inverted_index()
     resolved_inverted_index = bot.get_resolved_inverted_index()
+    document_index = bot.get_document_index()
+    lexicon = bot.get_lexicon()
 
     with open("out.txt", "w") as f:
-        print(inverted_index, file=f)
-        print(resolved_inverted_index, file=f)
+        print(f"Document Index [Size = {len(document_index)}]:\n{document_index}\n")
+        print(f"Lexicon [Size = {len(lexicon)}]:\n{lexicon}\n")
+        print(f"Inverted Index [Size = {len(inverted_index)}]:\n{inverted_index}\n")
+        print(f"Resolved Inverted Index [Size = {len(resolved_inverted_index)}]:\n{resolved_inverted_index}")
+
+        print(f"Document Index [Size = {len(document_index)}]:\n{document_index}\n", file=f)
+        print(f"Lexicon [Size = {len(lexicon)}]:\n{lexicon}\n", file=f)
+        print(f"Inverted Index [Size = {len(inverted_index)}]:\n{inverted_index}\n", file=f)
+        print(f"Resolved Inverted Index [Size = {len(resolved_inverted_index)}]:\n{resolved_inverted_index}", file=f)
