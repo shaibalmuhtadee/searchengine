@@ -25,18 +25,17 @@ document.addEventListener("DOMContentLoaded", function () {
           document.close();
         });
     });
-  } else {
-    const resultsTable = document.getElementById("results-table");
-    const resultsTableBody = resultsTable.querySelector("tbody");
-    const popularTable = document.getElementById("popular-keywords-table");
-    const popularTableBody = popularTable.querySelector("tbody");
-    const currentKeywordsHeader = document.querySelector("h1:nth-of-type(1)");
-    const popularKeywordsHeader = document.querySelector("h1:nth-of-type(2)");
+  }
 
-    // Show the headers and tables
-    currentKeywordsHeader.classList.remove("hidden");
-    popularKeywordsHeader.classList.remove("hidden");
-    resultsTable.style.display = "table";
-    popularTable.style.display = "table";
+  const popularTable = document.getElementById("popular-keywords-table");
+  const popularKeywordsHeader = document.querySelector("h1.hidden");
+
+  if (popularTable) {
+    // Show the history table on the query page if it has entries
+    const popularTableBody = popularTable.querySelector("tbody");
+    if (popularTableBody && popularTableBody.children.length > 0) {
+      popularKeywordsHeader.classList.remove("hidden");
+      popularTable.style.display = "table";
+    }
   }
 });

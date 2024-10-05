@@ -1,6 +1,5 @@
 from bottle import route, run, static_file, template, request, response
 from collections import Counter
-import json
 
 top_20_keywords = Counter()
 
@@ -8,7 +7,8 @@ top_20_keywords = Counter()
 @route('/', method=['GET', 'POST'])
 def index():
     if request.method == 'GET':
-        return template('views/index.html')
+        sorted_dict = dict(top_20_keywords.most_common(20))
+        return template('views/query.html', top_20_keywords=sorted_dict)
     elif request.method == 'POST':
         keywords = request.forms.get('keywords').strip()
         current_keywords = {}

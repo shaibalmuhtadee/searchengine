@@ -17,6 +17,23 @@
       />
       <button type="submit">Search</button>
     </form>
-    <script src="/static/script.js"></script>
+    <h1 class="hidden">Top 20 Popular Keywords</h1>
+    <table id="popular-keywords-table" name="history" style="display: none">
+      <thead>
+        <tr>
+          <th><strong>Popular Word</strong></th>
+          <th><strong>Total Count</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        % for word, count in top_20_keywords.items():
+        <tr>
+          <td>{{word}}</td>
+          <td>{{count}}</td>
+        </tr>
+        % end
+      </tbody>
+    </table>
+    <script src="/static/query_script.js"></script>
   </body>
 </html>
