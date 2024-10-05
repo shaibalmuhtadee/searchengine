@@ -13,7 +13,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-The first page is the query page. On this page you can write keywords into the search bar and then press the 'Search' button to view the results page. The query page also shows a history table that lists the top 20 most popular keywords searched and the total number of times that these words have been searched since the server is launched. The results page displays a table that lists the number of words that have been submitted in a query, and the number of appearances for each word.
+The first page is the query page. On this page you can write keywords into the search bar and then press the 'Search' button to view the results page. The query page also shows a history table that lists the top 20 most popular keywords searched and the total number of times that these words have been searched since the server is launched. The results page displays a table that lists the number of words that have been submitted in a query, and the number of appearances for each word along with the popular keywords table.
 
 ## Back-End
 
