@@ -4,8 +4,7 @@
 
 ## Front-End
 
-Make sure you have Python installed. Create a virtual environment and install the dependencies.
-Run the following commands and then navigate to `http://localhost:8080/`
+Make sure you have Python installed. Run the following commands to create a virtual environment and install necessary dependencies. Then navigate to `http://localhost:8080/`
 
 ```sh
 python -m venv venv
@@ -14,10 +13,11 @@ pip install -r requirements.txt
 python app.py
 ```
 
+The first page is the query page. On this page you can write keywords into the search bar and then press the 'Search' button to view the results page. The query page also shows a history table that lists the top 20 most popular keywords searched and the total number of times that these words have been searched since the server is launched. The results page displays a table that lists the number of words that have been submitted in a query, and the number of appearances for each word.
+
 ## Back-End
 
-Make sure you have Python installed. Create a virtual environment and install the dependencies.
-Run the following commands and you can observe the output in the terminal or in `out.txt`.
+Make sure you have Python installed. Run the following commands to create a virtual environment and install necessary dependencies. You can observe the output in the terminal or in `out.txt`.
 
 ```sh
 python -m venv venv
