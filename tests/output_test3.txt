@@ -1,0 +1,11 @@
+Document Index [Size = 1]:
+{1: 'https://localhost:8080'}
+
+Lexicon [Size = 0]:
+{}
+
+Inverted Index [Size = 0]:
+defaultdict(<class 'set'>, {})
+
+Resolved Inverted Index [Size = 0]:
+{}
